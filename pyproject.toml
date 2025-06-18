@@ -11,6 +11,7 @@ dependencies = [
     "aiohttp>=3.12.13",
     "azure-eventhub>=5.15.0",
     "azure-identity>=1.23.0",
+    "pydantic>=2.11.7",
 ]
 
 [project.scripts]
