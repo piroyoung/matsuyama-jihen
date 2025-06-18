@@ -7,7 +7,11 @@ authors = [
     { name = "Hiroki Mizukami", email = "6128022+piroyoung@users.noreply.github.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "aiohttp>=3.12.13",
+    "azure-eventhub>=5.15.0",
+    "azure-identity>=1.23.0",
+]
 
 [project.scripts]
 publisher = "matsuyama_jihen.publisher.__main__:main"
@@ -19,3 +23,8 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/matsuyama_jihen"]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.12.0",
+]
