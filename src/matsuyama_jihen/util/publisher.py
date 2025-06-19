@@ -24,7 +24,12 @@ class AzureEventHubPublisher(Publisher):
     def publish_messages(self, messages: List[ExampleMessage]) -> None:
         event_data_batch = self.client.create_batch()
         for message in messages:
-            event_data_batch.add(EventData(message.model_dump_json()))
+            try:
+                event_data_batch.add(EventData(message.model_dump_json()))
+            except BatchFullError:
+                self.client.send_batch(event_data_batch)
+                event_data_batch = self.client.create_batch()
+                event_data_batch.add(EventData(message.model_dump_json()))
         self.client.send_batch(event_data_batch)
 
     def publish_message(self, message: ExampleMessage) -> None:
