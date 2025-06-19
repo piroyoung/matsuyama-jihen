@@ -30,6 +30,7 @@ class AzureEventHubSubscriptionService(SubscriptionService):
             # Deserialize the JSON body into an ExampleMessage
             m: ExampleMessage = ExampleMessage.model_validate_json(body)
             self.handler.handle(m)
-
+            # Update the checkpoint to prevent reprocessing of the same event
+            partiton_context.update_checkpoint(event)
     def serve(self) -> None:
         self.client.receive(on_event=self._on_event)
