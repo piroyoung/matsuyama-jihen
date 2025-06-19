@@ -11,21 +11,21 @@ CONSUMER_GROUP = "example"
 
 if __name__ == "__main__":
     credential = DefaultAzureCredential()
-    client = EventHubConsumerClient(
-        fully_qualified_namespace=EVENT_HUB_FULLY_QUALIFIED_NAMESPACE,
-        eventhub_name=EVENT_HUB_NAME,
-        consumer_group=CONSUMER_GROUP,
-        credential=credential,
-    )
-
-    handler = PrintHandler()
-
-    service = AzureEventHubSubscriptionService(
-        handler=handler,
-        client=client,
-    )
-
     try:
+        client = EventHubConsumerClient(
+            fully_qualified_namespace=EVENT_HUB_FULLY_QUALIFIED_NAMESPACE,
+            eventhub_name=EVENT_HUB_NAME,
+            consumer_group=CONSUMER_GROUP,
+            credential=credential,
+        )
+
+        handler = PrintHandler()
+
+        service = AzureEventHubSubscriptionService(
+            handler=handler,
+            client=client,
+        )
+
         service.serve()
 
     finally:
