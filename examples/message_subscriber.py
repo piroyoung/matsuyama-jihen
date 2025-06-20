@@ -1,8 +1,11 @@
 from azure.identity import DefaultAzureCredential
 from azure.eventhub import EventHubConsumerClient
 
-from matsuyama_jihen.util.handler import PrintHandler
-from matsuyama_jihen.util.service import AzureEventHubSubscriptionService
+from matsuyama_jihen.util.handler import Handler, PrintHandler
+from matsuyama_jihen.util.service import (
+    AzureEventHubSubscriptionService,
+    SubscriptionService,
+)
 
 EVENT_HUB_FULLY_QUALIFIED_NAMESPACE = "matsuyama.servicebus.windows.net"
 EVENT_HUB_NAME = "example"
@@ -19,9 +22,9 @@ if __name__ == "__main__":
             credential=credential,
         )
 
-        handler = PrintHandler()
+        handler: Handler = PrintHandler()
 
-        service = AzureEventHubSubscriptionService(
+        service: SubscriptionService = AzureEventHubSubscriptionService(
             handler=handler,
             client=client,
         )

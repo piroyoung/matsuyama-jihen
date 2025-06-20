@@ -1,8 +1,9 @@
+from typing import List
 from azure.identity import DefaultAzureCredential
 from azure.eventhub import EventHubProducerClient
 
 from matsuyama_jihen.util.model import ExampleMessage
-from matsuyama_jihen.util.publisher import AzureEventHubPublisher
+from matsuyama_jihen.util.publisher import AzureEventHubPublisher, Publisher
 
 
 EVENT_HUB_FULLY_QUALIFIED_NAMESPACE = "matsuyama.servicebus.windows.net"
@@ -18,9 +19,9 @@ if __name__ == "__main__":
             credential=credential,
         )
 
-        publisher = AzureEventHubPublisher(client=client)
+        publisher: Publisher = AzureEventHubPublisher(client=client)
 
-        messages = [
+        messages: List[ExampleMessage] = [
             ExampleMessage.of_body("First event"),
             ExampleMessage.of_body("Second event"),
             ExampleMessage.of_body("Third event"),
